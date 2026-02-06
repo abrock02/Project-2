@@ -90,7 +90,6 @@ def DoIHaveAnUnknownMember(nodes):
         
     return False
 def IterateUsingMethodOfJoints(nodes,bars):
-    return
     counter = 0
     while DoIHaveAnUnknownMember(nodes) == True:
         for node in nodes:
