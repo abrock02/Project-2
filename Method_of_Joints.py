@@ -32,8 +32,7 @@ def NodeIsViable(node):
     
 # Compute unknown force in bar due to sum of the
 # forces in the x direction
-def SumOfForcesInLocalX(node, unknown_bars):
-    local_x_bar = unknown_bars[0]
+def SumOfForcesInLocalX(node, local_x_bar):
     vec_local_x = geom.BarNodeToVector(node, local_x_bar)
     
     force_sum = 0
@@ -93,13 +92,13 @@ def IterateUsingMethodOfJoints(nodes,bars):
     counter = 0
     while DoIHaveAnUnknownMember(nodes) == True:
         for node in nodes:
-            if NodeIsViable(nodes):
+            if NodeIsViable(node):
                 current_unknowns = UnknownBars(node)
                 SumOfForcesInLocalY(node, current_unknowns)
                 remaining_unknowns = UnknownBars(node)
                 
                 if len(remaining_unknowns) > 0:
-                    SumOfForcesInLocalX(node, remaining_unknowns)
+                    SumOfForcesInLocalX(node, remaining_unknowns[0])
         counter += 1
         if counter > len(nodes) + 1:
             sys.exit("Too many iterations")
